@@ -1,0 +1,73 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Time {
+public:
+	void set(int, int);
+	void read(string);
+	bool lessThan(Time);
+	Time subtract(Time);
+	void display();
+private:
+	int hour;
+	int min;
+};
+
+void Time::read(string motd) { //reading time from console
+	int h;
+	int m;
+	cout << motd << endl;
+	cin >> h >> m;
+	hour = h;
+	min = m;
+}
+
+void Time::set(int h, int m) { //function for setting time manually
+	hour = h;
+	min = m;
+}
+
+void Time::display() { //displaying time
+	cout << hour << ":" << min << endl;
+}
+
+Time Time::subtract(Time t1) { //subtracting two times
+	int Time2 = 60 * hour + min;
+	int Time1 = 60 * t1.hour + t1.min;
+	int h = (Time2 - Time1) / 60;
+	int m = (Time2 - Time1) % 60;
+	Time result;
+	result.set(h, m);
+	return result;
+}
+
+bool Time::lessThan(Time t2) { //true if t1 less than t2
+	int time1 = 60 * hour + min;
+	int time2 = 60 * t2.hour + t2.min;
+	if (time1 < time2) { return true; }
+	else { return false; }
+}
+
+int main() {
+	Time time1, time2, duration;
+
+	time1.read("Enter time 1");
+	time2.read("Enter time 2");
+	if (time1.lessThan(time2)) {
+		duration = time2.subtract(time1);
+		cout << "Starting time was ";
+		time1.display();
+	}
+	else {
+		duration = time1.subtract(time2);
+		cout << "Starting time was ";
+		time2.display();
+	}
+	cout << "Duration was ";
+	duration.display();
+
+	return 0;
+}
+
+
